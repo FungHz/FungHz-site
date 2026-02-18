@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FungHz</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <style>
     body {
       margin: 0;
@@ -21,18 +25,32 @@
       height: auto;
     }
 
-    .tagline {
+    .bottom-info {
       position: absolute;
       bottom: 20px; /* distance from bottom */
-      font-size: 14px;
-      color: #333;
       text-align: center;
+      color: #333;
+      line-height: 1.2;
+    }
+
+    .bottom-info .tagline {
+      font-size: 14px;
       letter-spacing: 1px;
+    }
+
+    .bottom-info .phone {
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-top: 2px; /* small gap under tagline */
     }
   </style>
 </head>
 <body>
   <img src="Logo white background.png" alt="FungHz Logo" class="logo">
-  <div class="tagline">DIGITAL MARKETING SERVICES</div>
+
+  <div class="bottom-info">
+    <div class="tagline">DIGITAL MARKETING SERVICES</div>
+    <div class="phone">+447 732 399 299</div>
+  </div>
 </body>
 </html>
