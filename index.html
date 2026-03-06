@@ -1,53 +1,251 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+ <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FungHz</title>
-
-  <!-- Favicon -->
+  <script src="/_sdk/element_sdk.js"></script><!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-
   <style>
-    body {
+    * {
       margin: 0;
-      background-color: #ffffff; /* White background */
-      height: 100vh;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #0a0a1a 0%, #1a1a3a 30%, #0d0d2b 60%, #050510 100%);
+      min-height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-family: 'Courier New', Courier, monospace; /* typewriter font */
+      font-family: 'Courier New', Courier, monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Stars container */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: var(--min-opacity);
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes shootingStar {
+      0% {
+        left: -50px;
+        top: 100%;
+        opacity: 1;
+      }
+      100% {
+        left: calc(100vw + 50px);
+        top: -50px;
+        opacity: 0;
+      }
+    }
+
+    .shooting-star {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.8), 0 0 40px 4px rgba(100, 150, 255, 0.6);
+      pointer-events: none;
+      z-index: 1;
+      animation: shootingStar 2s ease-in forwards;
+      transform: rotate(50deg);
+    }
+
+    /* Subtle cosmic glow overlay */
+    .cosmic-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(75, 0, 130, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 0, 80, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(25, 25, 112, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+      padding: 20px;
     }
 
     .logo {
-      max-width: 400px; /* Adjust logo size as needed */
+      max-width: 400px;
       height: auto;
     }
 
     .bottom-info {
       position: absolute;
-      bottom: 20px; /* distance from bottom */
+      bottom: 20px;
       text-align: center;
-      color: #333;
+      color: #ffffff;
       line-height: 1.2;
+      z-index: 2;
     }
 
     .bottom-info div {
       font-size: 14px;
       letter-spacing: 1px;
-      margin-top: 2px; /* small gap between lines */
+      margin-top: 2px;
+      color: #ffffff;
     }
   </style>
-</head>
-<body>
-  <img src="Logo white background.png" alt="FungHz Logo" class="logo">
-
-  <div class="bottom-info">
-    <div class="tagline">DIGITAL MARKETING SERVICES</div>
-    <div class="email">INFO@FUNGHZ.COM</div>
-    <div class="phone">WHATSAPP +447 732 399 299</div>
-    <div class="company-info">KVK 98582682 BTW NL005341509B80</div>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <!-- Stars background -->
+  <div class="stars-container" id="starsContainer"></div><!-- Cosmic glow overlay -->
+  <div class="cosmic-glow"></div>
+  <div class="content-wrapper">
+   <img src="Logo white background.png" alt="FungHz Logo" class="logo">
   </div>
-</body>
+  <div class="bottom-info">
+   <div class="tagline" id="tagline">
+    DIGITAL MARKETING SERVICES
+   </div>
+   <div class="email" id="email">
+    INFO@FUNGHZ.COM
+   </div>
+   <div class="phone" id="phone">
+    WHATSAPP +447 732 399 299
+   </div>
+   <div class="company-info" id="company_info">
+    KVK 98582682 BTW NL005341509B80
+   </div>
+  </div>
+  <script>
+    // Generate stars
+    function createStars() {
+      const container = document.getElementById('starsContainer');
+      const starCount = 200;
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random position
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        
+        // Random size (very tiny: 1-2px)
+        const size = Math.random() * 1.5 + 0.5;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Random animation properties
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--delay', (Math.random() * 3) + 's');
+        star.style.setProperty('--min-opacity', Math.random() * 0.3 + 0.2);
+        
+        container.appendChild(star);
+      }
+    }
+
+    createStars();
+
+    // Shooting star every 5 seconds
+    function createShootingStar() {
+      const container = document.getElementById('starsContainer');
+      const shootingStar = document.createElement('div');
+      shootingStar.className = 'shooting-star';
+      container.appendChild(shootingStar);
+      
+      // Remove the element after animation completes
+      setTimeout(() => shootingStar.remove(), 2000);
+    }
+
+    // Launch shooting star every 5 seconds
+    setInterval(createShootingStar, 5000);
+    // Launch first one immediately
+    createShootingStar();
+
+    // Element SDK configuration
+    const defaultConfig = {
+      tagline: 'DIGITAL MARKETING SERVICES',
+      email: 'INFO@FUNGHZ.COM',
+      phone: 'WHATSAPP +447 732 399 299',
+      company_info: 'KVK 98582682 BTW NL005341509B80'
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+      document.getElementById('email').textContent = config.email || defaultConfig.email;
+      document.getElementById('phone').textContent = config.phone || defaultConfig.phone;
+      document.getElementById('company_info').textContent = config.company_info || defaultConfig.company_info;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['tagline', config.tagline || defaultConfig.tagline],
+        ['email', config.email || defaultConfig.email],
+        ['phone', config.phone || defaultConfig.phone],
+        ['company_info', config.company_info || defaultConfig.company_info]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d815d70771fd3db',t:'MTc3MjgwMDE1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
