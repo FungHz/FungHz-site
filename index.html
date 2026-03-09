@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FungHz</title>
-  <script src="/_sdk/element_sdk.js"></script><!-- Favicon -->
+  <script type='text/javascript' src='https://c3fnyctk80trh3kv.canvacode.com/RidA50HaFGuIKGuTks_AWwU_CZnHfQbLqrwicnwzW9rfxUYVLL0TNWzqyavgG-DYVMLpJDIKiM6nLTtNwbLguXLo4Qg1dLFKtm3akvmv_l-vkTs5XbN8Iqf3frvzJDuAwcO8K1EtpMjd5sq9Er8ycRz50U2WCuPS-hUHnfq9mrzWfkoph2XRrCZczf7-dLuYltpTbX8m2c0JJWGruPvqnnd1fjMKN4war5MKWkDFKNohc4gd3txNR9s-8gj3EcS0Ee5yag16naO1g6xhtaaWquMOvh3HGYSd89AvBHV3b1u3UpMfbHhWy9mUaE8l-T-3E0tNyQT2obeyyju3jcMO-AFrPz4KYeJffF5I30ae3suudwhVxaiqZlA4rW9SQPOG_3KsYlDcUpXXsHOvIII_L37b9TUgbrIk0-HAQqpQUhaLwGOw-gv4XsSKN0sSyHZ2W1Vlls1fBixd-Mcmoj9S8NeLW8gRB7MH7dJn0cvdtoqlSO-8GyCFcMXPjzSiLkhxB4x1-NnNPAJYBe2Ny-0a0OFe_DbFoe-l42Wy5TQ7P3za5svss-vYV2mCoNdlkQVQQGmCYD61Dg_8PvRRSCqhGdwexkFSYjpSMa9BUoj-f77ZTw24ya7utNynFrYa_RWpBh_m_DYr8NyHGI9WUCzDonEt'></script><script src="/_sdk/element_sdk.js"></script><!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     * {
@@ -64,6 +64,12 @@
       0% {
         left: -50px;
         top: 100%;
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      80% {
         opacity: 1;
       }
       100% {
@@ -133,6 +139,108 @@
       margin-top: 2px;
       color: #ffffff;
     }
+
+    .ufo {
+      position: fixed;
+      width: 60px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 3;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    .ufo-body {
+      width: 100%;
+      height: 24px;
+      background: linear-gradient(to bottom, #444444, #222222);
+      border-radius: 50% 50% 40% 40%;
+      position: relative;
+      box-shadow: 0 0 15px rgba(100, 200, 100, 0.4);
+    }
+
+    .ufo-light {
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 12px;
+      background: linear-gradient(to bottom, rgba(100, 255, 100, 0.6), rgba(100, 255, 100, 0.2));
+      border-radius: 0 0 20px 20px;
+      animation: lightPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes lightPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .alien {
+      position: absolute;
+      width: 24px;
+      height: 32px;
+      top: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .alien-head {
+      width: 16px;
+      height: 18px;
+      background: #00dd00;
+      border-radius: 50% 50% 40% 40%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .alien-eye {
+      position: absolute;
+      width: 4px;
+      height: 6px;
+      background: #000000;
+      border-radius: 50%;
+      top: 6px;
+    }
+
+    .alien-eye:first-child {
+      left: 3px;
+    }
+
+    .alien-eye:last-child {
+      right: 3px;
+    }
+
+    .alien-body {
+      width: 14px;
+      height: 10px;
+      background: #00bb00;
+      margin: 2px auto 0;
+      border-radius: 40%;
+    }
+
+    .alien-arm {
+      position: absolute;
+      width: 3px;
+      height: 8px;
+      background: #00dd00;
+      top: 12px;
+      animation: armWave 0.6s ease-in-out infinite;
+    }
+
+    .alien-arm:first-child {
+      left: 2px;
+    }
+
+    .alien-arm:last-child {
+      right: 2px;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes armWave {
+      0%, 100% { transform: rotate(-20deg); }
+      50% { transform: rotate(20deg); }
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
@@ -157,6 +265,20 @@
    </div>
    <div class="company-info" id="company_info">
     KVK 98582682 BTW NL005341509B80
+   </div>
+  </div><!-- UFO with alien -->
+  <div class="ufo" id="ufo">
+   <div class="ufo-body">
+    <div class="alien">
+     <div class="alien-head">
+      <div class="alien-eye"></div>
+      <div class="alien-eye"></div>
+     </div>
+     <div class="alien-body"></div>
+     <div class="alien-arm"></div>
+     <div class="alien-arm"></div>
+    </div>
+    <div class="ufo-light"></div>
    </div>
   </div>
   <script>
@@ -246,6 +368,52 @@
         mapToEditPanelValues
       });
     }
+
+    // UFO with alien movement logic
+    function initUFOMovement() {
+      const ufo = document.getElementById('ufo');
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight / 2;
+      const speed = 100; // pixels per jump
+      const jumpInterval = 1000; // milliseconds between jumps
+
+      function moveToRandomPosition() {
+        // Generate random position with some padding from edges
+        const padding = 80;
+        const maxX = window.innerWidth - padding;
+        const maxY = window.innerHeight - padding;
+        
+        x = Math.random() * (maxX - padding) + padding;
+        y = Math.random() * (maxY - padding) + padding;
+        
+        ufo.style.left = x + 'px';
+        ufo.style.top = y + 'px';
+      }
+
+      // Jump away from cursor
+      document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // Calculate distance from cursor to UFO
+        const distX = x - mouseX;
+        const distY = y - mouseY;
+        const distance = Math.sqrt(distX * distX + distY * distY);
+        
+        // If cursor is within 150 pixels, jump away
+        if (distance < 150) {
+          moveToRandomPosition();
+        }
+      });
+
+      // Random jump every so often
+      setInterval(moveToRandomPosition, jumpInterval);
+
+      // Initial position
+      moveToRandomPosition();
+    }
+
+    initUFOMovement();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d815d70771fd3db',t:'MTc3MjgwMDE1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d9a6a302202f5e7',t:'MTc3MzA2MjgyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
