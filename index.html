@@ -1,417 +1,368 @@
 <!doctype html>
-<html lang="en">
- <head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FungHz</title>
-  <script type='text/javascript' src='https://c3fwweaj8g5gg3j2.canvacode.com/HhdEcwcBgw_ItE99gc6OjQDC3CCLgGw20-XrvYyw_qviZfqHEqOBdyRZr13Bzs5iSbkC36p5xmKa5NoFCPN9QdfUdVfurAvSyGRJTdDCK_VBwbXRhGHVurFPniZgqZdZ1UjsMleNNO2XJp831j83--vxAOt_HV-lqy6v1Fob2PSjOz06gZw2us6TrAy6sQ1YhqT_v1Pk-wMBTK2v5ThcpgarCh65np-GFVZWdMrBHuCuibBLzmlxd6um7NOPFusfXLHiggp1Yo6-d89wUexKzvbsL20c3GVmTIe8oXSTCcrd9I68b36mIf2pbAekR0QpDiMUFMxvlGw5KJ1lDB0QzOUpg9yrtN47IBEK5t_12VsIIrBMsKn6h9qrWSmvZX6bkVfZf7ptetGgIghmwqoH2fdc70R893rh2Lfl0yFfpeIPp4zoI3Ng-ryuqoe106HF2iWN_kXo7gUFWAxCmvEPcdYy38xuI_1wQQcC80MRfL11v-B9vzMaW6xcZlXJ3yYYGmwMlsC7VIvtwfX1mBuJ5oFHblT-RL8I5jnhSXrXFNXEB7GvrP5ytKTTm5V52ADgVpwpZaYs0i-lmOS_lun3S193Xcq6QvyaBnX214K6HfPdvFO_8VKYjdfFUyKh-fqOdlglSNXKTio5YSihXTi50zEq'></script><script src="/_sdk/element_sdk.js"></script><!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>FungHz Prestige</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Raleway:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --gold: #D4AF37;
+      --soft-gold: rgba(212, 175, 55, 0.32);
+      --muted-gold: rgba(212, 175, 55, 0.62);
     }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-    }
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      background: linear-gradient(to bottom, #0a0a1a 0%, #1a1a3a 30%, #0d0d2b 60%, #050510 100%);
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      background: #000;
+      color: var(--gold);
+      overflow-x: hidden;
+    }
+
+    .page-shell {
       position: relative;
-      overflow: hidden;
-    }
-
-    /* Stars container */
-    .stars-container {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      min-height: calc(100 * min(var(--vh, 1vh), 1vh));
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.04) 22%, rgba(0,0,0,0) 48%),
+        #000;
     }
 
-    .star {
+    .page-shell::before {
+      content: "";
       position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--duration) ease-in-out infinite;
-      animation-delay: var(--delay);
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity: 0.08;
+      pointer-events: none;
+      mask-image: radial-gradient(circle at center, black 0%, transparent 74%);
     }
 
-    @keyframes twinkle {
-      0%, 100% {
-        opacity: var(--min-opacity);
-        transform: scale(1);
-      }
-      50% {
+    .luxury-serif { font-family: 'Cormorant Garamond', serif; }
+    .tracking-luxury { letter-spacing: 0.34em; }
+
+    .fade-rise {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeRise 1.2s ease forwards;
+    }
+    .delay-1 { animation-delay: .15s; }
+    .delay-2 { animation-delay: .4s; }
+    .delay-3 { animation-delay: .65s; }
+    .delay-4 { animation-delay: .9s; }
+    .delay-5 { animation-delay: 1.15s; }
+
+    @keyframes fadeRise {
+      to {
         opacity: 1;
-        transform: scale(1.2);
+        transform: translateY(0);
       }
     }
 
-    @keyframes shootingStar {
+    .nav-link {
+      position: relative;
+      transition: color .3s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 100%;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .35s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .corner-frame {
+      display: none;
+    }
+
+    .corner-frame-mirrored {
+      position: absolute;
+      top: 26%;
+      left: 50%;
+      transform: translateX(-50%);
+      inset: auto;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      pointer-events: none;
+      opacity: .9;
+    }
+
+    .corner-frame-mirrored span {
+      position: absolute;
+      display: block;
+      background: linear-gradient(to right, transparent, var(--muted-gold), transparent);
+    }
+
+    .corner-frame-mirrored .top-right-h {
+      width: 120px;
+      height: 1px;
+      right: 0;
+      top: 0;
+    }
+
+    .corner-frame-mirrored .top-right-v {
+      width: 1px;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, var(--muted-gold), transparent);
+      right: 0;
+      top: 0;
+    }
+
+    .corner-frame-mirrored::before {
+      content: "";
+      position: absolute;
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #f2d77f, transparent);
+      opacity: 0;
+      animation: sweepLine 4.8s ease-in-out infinite;
+      top: 0;
+      right: 0;
+    }
+
+    @keyframes sweepLine {
+      0%, 100% { opacity: 0; transform: translateX(0); }
+      15% { opacity: .95; }
+      55% { opacity: .35; transform: translateX(100px); }
+      70% { opacity: 0; }
+    }
+
+    /* Logo glow effect */
+    [data-template-id="hero-logo"] {
+      filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.35)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+      animation: logoPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.35)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.2)); }
+      50% { filter: drop-shadow(0 0 60px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.3)); }
+    }
+
+    /* Particle container */
+    .particle-field {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.6;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: radial-gradient(circle, #f2d77f, rgba(212, 175, 55, 0.4));
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float linear infinite;
+      box-shadow: 0 0 8px rgba(242, 215, 127, 0.5);
+    }
+
+    @keyframes float {
       0% {
-        left: -50px;
-        top: 100%;
+        transform: translateY(100vh) translateX(0) scale(1);
         opacity: 0;
       }
-      20% {
-        opacity: 1;
+      5% {
+        opacity: 0.7;
       }
-      80% {
-        opacity: 1;
+      95% {
+        opacity: 0.7;
       }
       100% {
-        left: calc(100vw + 50px);
-        top: -50px;
+        transform: translateY(-100vh) translateX(var(--tx)) scale(0.5);
         opacity: 0;
       }
     }
 
-    .shooting-star {
-      position: fixed;
-      width: 3px;
-      height: 3px;
-      background: white;
-      border-radius: 50%;
-      box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.8), 0 0 40px 4px rgba(100, 150, 255, 0.6);
-      pointer-events: none;
-      z-index: 1;
-      animation: shootingStar 2s ease-in forwards;
-      transform: rotate(50deg);
+    /* Hero title divider */
+    .hero-title-divider {
+      width: 140px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--muted-gold), transparent);
+      margin: 28px auto 32px;
+      animation: fadeIn 1.4s ease forwards;
+      animation-delay: 0.35s;
+      opacity: 0;
     }
 
-    /* Subtle cosmic glow overlay */
-    .cosmic-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(ellipse at 20% 20%, rgba(75, 0, 130, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(0, 0, 80, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(25, 25, 112, 0.05) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
-    .content-wrapper {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      flex: 1;
-      width: 100%;
-      padding: 20px;
-    }
-
-    .logo {
-      max-width: 400px;
-      height: auto;
-    }
-
-    .bottom-info {
+    /* Background layered depth */
+    .page-shell::after {
+      content: "";
       position: absolute;
-      bottom: 20px;
-      text-align: center;
-      color: #ffffff;
-      line-height: 1.2;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 800px 600px at 50% -10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 100%, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Subtle vignette */
+    .page-shell::before {
       z-index: 2;
     }
 
-    .bottom-info div {
-      font-size: 14px;
-      letter-spacing: 1px;
-      margin-top: 2px;
-      color: #ffffff;
-    }
-
-    .ufo {
-      position: fixed;
-      width: 60px;
-      height: 40px;
-      cursor: pointer;
-      z-index: 3;
-      user-select: none;
-      pointer-events: auto;
-    }
-
-    .ufo-body {
-      width: 100%;
-      height: 24px;
-      background: linear-gradient(to bottom, #444444, #222222);
-      border-radius: 50% 50% 40% 40%;
+    .cta-link {
       position: relative;
-      box-shadow: 0 0 15px rgba(100, 200, 100, 0.4);
+      display: inline-block;
+      transition: color .35s ease;
     }
 
-    .ufo-light {
+    .cta-link::after {
+      content: "";
       position: absolute;
+      left: 50%;
       bottom: -8px;
-      left: 50%;
+      height: 1px;
+      width: 26px;
       transform: translateX(-50%);
-      width: 40px;
-      height: 12px;
-      background: linear-gradient(to bottom, rgba(100, 255, 100, 0.6), rgba(100, 255, 100, 0.2));
-      border-radius: 0 0 20px 20px;
-      animation: lightPulse 1s ease-in-out infinite;
+      background: var(--gold);
+      transition: width .35s ease;
     }
 
-    @keyframes lightPulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
+    .cta-link:hover::after,
+    .cta-link:focus-visible::after {
+      width: 100%;
     }
 
-    .alien {
-      position: absolute;
-      width: 24px;
-      height: 32px;
-      top: 2px;
-      left: 50%;
-      transform: translateX(-50%);
+    a:focus-visible {
+      outline: 1px solid var(--gold);
+      outline-offset: 6px;
     }
 
-    .alien-head {
-      width: 16px;
-      height: 18px;
-      background: #00dd00;
-      border-radius: 50% 50% 40% 40%;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .alien-eye {
-      position: absolute;
-      width: 4px;
-      height: 6px;
-      background: #000000;
-      border-radius: 50%;
-      top: 6px;
-    }
-
-    .alien-eye:first-child {
-      left: 3px;
-    }
-
-    .alien-eye:last-child {
-      right: 3px;
-    }
-
-    .alien-body {
-      width: 14px;
-      height: 10px;
-      background: #00bb00;
-      margin: 2px auto 0;
-      border-radius: 40%;
-    }
-
-    .alien-arm {
-      position: absolute;
-      width: 3px;
-      height: 8px;
-      background: #00dd00;
-      top: 12px;
-      animation: armWave 0.6s ease-in-out infinite;
-    }
-
-    .alien-arm:first-child {
-      left: 2px;
-    }
-
-    .alien-arm:last-child {
-      right: 2px;
-      animation-delay: 0.3s;
-    }
-
-    @keyframes armWave {
-      0%, 100% { transform: rotate(-20deg); }
-      50% { transform: rotate(20deg); }
+    @media (max-width: 768px) {
+      .tracking-luxury { letter-spacing: .22em; }
+      .corner-frame-mirrored { top: 30%; max-width: 200px; }
+      .corner-frame-mirrored .top-right-h,
+      .corner-frame-mirrored .top-right-v { transform: scale(0.6); }
     }
   </style>
-  <style>body { box-sizing: border-box; }</style>
-  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
- <body><!-- Stars background -->
-  <div class="stars-container" id="starsContainer"></div><!-- Cosmic glow overlay -->
-  <div class="cosmic-glow"></div>
-  <div class="content-wrapper"><img src="Logo white background.png" alt="FungHz Logo" class="logo">
-  </div>
-  <div class="bottom-info">
-   <div class="tagline" id="tagline">
-    DIGITAL MARKETING SERVICES
-   </div>
-   <div class="email" id="email">
-    INFO@FUNGHZ.COM
-   </div>
-   <div class="phone" id="phone">
-    WHATSAPP +447 732 399 299
-   </div>
-   <div class="company-info" id="company_info">
-    KVK 98582682 BTW NL005341509B80
-   </div>
-  </div><!-- UFO with alien -->
-  <div class="ufo" id="ufo">
-   <div class="ufo-body">
-    <div class="alien">
-     <div class="alien-head">
-      <div class="alien-eye"></div>
-      <div class="alien-eye"></div>
-     </div>
-     <div class="alien-body"></div>
-     <div class="alien-arm"></div>
-     <div class="alien-arm"></div>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  </head>
+ <body data-template-id="__page-root" style="background: rgb(0, 0, 0);">
+  <div class="page-shell">
+   <header class="relative z-20 w-full px-6 md:px-10 lg:px-14 py-7 md:py-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+     <a href="#hero" data-template-id="header-brand" class="canva-text luxury-serif text-[15px] md:text-[17px] tracking-[0.12em] no-underline" style="color: rgb(212, 175, 55); font-weight: 500; font-style: normal; font-size: 16px;">FUNGHz PRESTIGE</a>
+     <nav class="hidden md:flex items-center gap-9" aria-label="Primary navigation">
+      <button id="header-contact-toggle" data-template-id="nav-contact" class="canva-link nav-link text-[10px] uppercase tracking-[0.32em] no-underline" style="background: none; border: none; cursor: pointer; padding: 0px; color: rgb(212, 175, 55); font-weight: 400; font-style: normal; font-size: 16px;">CONTACT US</button>
+      <div id="header-contact-options" class="absolute top-full mt-2 flex gap-4 hidden">
+       <a href="mailto:info@funghz.com" data-template-id="nav-email" class="canva-link nav-link text-[10px] uppercase tracking-[0.32em] no-underline" style="color: rgb(212, 175, 55); font-weight: 400; font-style: normal; font-size: 16px;">EMAIL</a> <a href="https://wa.me/447732399299" target="_blank" rel="noopener noreferrer" data-template-id="nav-whatsapp" class="canva-link nav-link text-[10px] uppercase tracking-[0.32em] no-underline" style="color: rgb(212, 175, 55); font-weight: 400; font-style: normal; font-size: 16px;">WHATSAPP</a>
+      </div>
+     </nav>
     </div>
-    <div class="ufo-light"></div>
-   </div>
+   </header>
+   <main id="hero" class="relative z-10 w-full">
+    <section class="relative min-h-[calc(82*min(var(--vh,1vh),1vh))] px-6 md:px-10 flex items-center justify-center">
+     <div class="particle-field" aria-hidden="true" id="particle-container"></div>
+     <div class="corner-frame" aria-hidden="true">
+      <span class="top-left-h"></span> <span class="top-left-v"></span> <span class="bottom-right-h"></span> <span class="bottom-right-v"></span>
+     </div>
+     <div class="corner-frame corner-frame-mirrored" aria-hidden="true">
+      <span class="top-right-h"></span> <span class="top-right-v"></span>
+     </div>
+     <div class="w-full max-w-4xl mx-auto text-center relative z-10">
+      <div class="fade-rise delay-1 flex justify-center mb-8 md:mb-10">
+       <img data-template-id="hero-logo" loading="lazy" class="canva-image w-[170px] md:w-[220px] lg:w-[250px] h-auto object-contain opacity-95" src="funghzprestige.png" alt="FungHz Prestige luxury gold logo on black background">
+      </div>
+      <div class="fade-rise delay-2 mb-6">
+       <p data-template-id="hero-eyebrow" class="canva-text uppercase tracking-luxury text-[10px] md:text-[11px]" style="color: rgb(212, 175, 55); font-weight: 500; font-style: normal; font-size: 11px;">DISTINCTION, ENGINEERED</p>
+      </div>
+      <div class="fade-rise delay-3">
+       <h1 data-template-id="hero-title" class="canva-text luxury-serif font-normal leading-[0.95] max-w-4xl mx-auto" style="color: rgb(212, 175, 55); font-weight: 400; font-style: normal; font-size: 72px; line-height: 0.95;">Influence, elevated
+to an art form.</h1>
+       <div class="hero-title-divider"></div>
+      </div>
+      <div class="fade-rise delay-4">
+       <p data-template-id="hero-copy" class="canva-text max-w-2xl mx-auto mt-10 md:mt-12 lg:mt-14 leading-7 md:leading-8 text-[13px] md:text-[14px] tracking-[0.08em]" style="color: rgb(212, 175, 55); font-weight: 300; font-style: normal; font-size: 14px; line-height: 1.8;">We shape rarefied digital presences for brands that refuse the ordinary -
+ with strategy, restraint, and an uncompromising eye for resonance.</p>
+      </div>
+     </div>
+    </section>
+    <section id="philosophy" class="fixed bottom-0 left-0 right-0 z-20 px-6 md:px-10 py-4">
+     <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col items-center justify-center text-center gap-2">
+       <p data-template-id="footer-contact" class="canva-text text-[11px] md:text-[12px] tracking-[0.12em] leading-relaxed" style="color: rgb(168, 153, 104); font-weight: 300; font-style: normal; font-size: 11px;">DIGITAL MARKETING SERVICES   
+ INFO@FUNGHZ.COM  •  WHATSAPP +44 7732 399 299
+THE HAGUE, NL  </p>
+       <p data-template-id="footer-registry" class="canva-text text-[9px] md:text-[10px] tracking-[0.14em] leading-relaxed" style="color: rgb(122, 122, 122); font-weight: 300; font-style: normal; font-size: 9px;">KvK 98582682  •  BTW NL005341509B80</p>
+      </div>
+     </div>
+    </section>
+   </main>
   </div>
   <script>
-    // Generate stars
-    function createStars() {
-      const container = document.getElementById('starsContainer');
-      const starCount = 200;
-
-      for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        
-        // Random position
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        
-        // Random size (very tiny: 1-2px)
-        const size = Math.random() * 1.5 + 0.5;
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        
-        // Random animation properties
-        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-        star.style.setProperty('--delay', (Math.random() * 3) + 's');
-        star.style.setProperty('--min-opacity', Math.random() * 0.3 + 0.2);
-        
-        container.appendChild(star);
-      }
-    }
-
-    createStars();
-
-    // Shooting star every 5 seconds
-    function createShootingStar() {
-      const container = document.getElementById('starsContainer');
-      const shootingStar = document.createElement('div');
-      shootingStar.className = 'shooting-star';
-      container.appendChild(shootingStar);
+    // Create floating gold particles for luxury atmosphere
+    function createParticles() {
+      const container = document.getElementById('particle-container');
+      if (!container) return;
       
-      // Remove the element after animation completes
-      setTimeout(() => shootingStar.remove(), 2000);
-    }
-
-    // Launch shooting star every 10 seconds
-    setInterval(createShootingStar, 10000);
-    // Launch first one immediately
-    createShootingStar();
-
-    // Element SDK configuration
-    const defaultConfig = {
-      tagline: 'DIGITAL MARKETING SERVICES',
-      email: 'INFO@FUNGHZ.COM',
-      phone: 'WHATSAPP +447 732 399 299',
-      company_info: 'KVK 98582682 BTW NL005341509B80'
-    };
-
-    async function onConfigChange(config) {
-      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
-      document.getElementById('email').textContent = config.email || defaultConfig.email;
-      document.getElementById('phone').textContent = config.phone || defaultConfig.phone;
-      document.getElementById('company_info').textContent = config.company_info || defaultConfig.company_info;
-    }
-
-    function mapToCapabilities(config) {
-      return {
-        recolorables: [],
-        borderables: [],
-        fontEditable: undefined,
-        fontSizeable: undefined
-      };
-    }
-
-    function mapToEditPanelValues(config) {
-      return new Map([
-        ['tagline', config.tagline || defaultConfig.tagline],
-        ['email', config.email || defaultConfig.email],
-        ['phone', config.phone || defaultConfig.phone],
-        ['company_info', config.company_info || defaultConfig.company_info]
-      ]);
-    }
-
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange,
-        mapToCapabilities,
-        mapToEditPanelValues
-      });
-    }
-
-    // UFO with alien movement logic
-    function initUFOMovement() {
-      const ufo = document.getElementById('ufo');
-      let x = window.innerWidth / 2;
-      let y = window.innerHeight / 2;
-      const speed = 100; // pixels per jump
-      const jumpInterval = 1000; // milliseconds between jumps
-
-      function moveToRandomPosition() {
-        // Generate random position with some padding from edges
-        const padding = 80;
-        const maxX = window.innerWidth - padding;
-        const maxY = window.innerHeight - padding;
+      const particleCount = window.innerWidth > 768 ? 45 : 25;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
         
-        x = Math.random() * (maxX - padding) + padding;
-        y = Math.random() * (maxY - padding) + padding;
+        const xOffset = Math.random() * 200 - 100;
+        const duration = 12 + Math.random() * 20;
+        const delay = Math.random() * 8;
+        const xPos = Math.random() * 100;
         
-        ufo.style.left = x + 'px';
-        ufo.style.top = y + 'px';
+        particle.style.cssText = `
+          left: ${xPos}%;
+          --tx: ${xOffset}px;
+          animation-duration: ${duration}s;
+          animation-delay: ${delay}s;
+        `;
+        
+        container.appendChild(particle);
       }
+    }
+    
+    createParticles();
+    window.addEventListener('resize', () => {
+      const container = document.getElementById('particle-container');
+      if (container) container.innerHTML = '';
+      createParticles();
+    });
 
-      // Jump away from cursor
-      document.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-        
-        // Calculate distance from cursor to UFO
-        const distX = x - mouseX;
-        const distY = y - mouseY;
-        const distance = Math.sqrt(distX * distX + distY * distY);
-        
-        // If cursor is within 150 pixels, jump away
-        if (distance < 150) {
-          moveToRandomPosition();
-        }
+    // Toggle contact options visibility in header
+    const headerContactToggle = document.getElementById('header-contact-toggle');
+    const headerContactOptions = document.getElementById('header-contact-options');
+    
+    if (headerContactToggle && headerContactOptions) {
+      headerContactToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        headerContactOptions.classList.toggle('hidden');
       });
-
-      // Random jump every so often
-      setInterval(moveToRandomPosition, jumpInterval);
-
-      // Initial position
-      moveToRandomPosition();
     }
 
-    initUFOMovement();
+
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d9b1bccf7ddd5d8',t:'MTc3MzA3MDA5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+</body></html>
